@@ -6,6 +6,7 @@ class Sector(pygame.sprite.Sprite):
         sector_surf2 = pygame.image.load("resources/sector2.png").convert()
         sector_surf2 = pygame.transform.scale(90, 90)
         self.sector_surf_list = [sector_surf1, sector_surf2]
+        
 
 # class Player(pygame.sprite.Sprite):
 #     def __init__(self):
