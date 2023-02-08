@@ -1,4 +1,11 @@
-class Grid
+class Sector(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        sector_surf1 = pygame.image.load("resources/sector1.png").convert()
+        sector_surf1 = pygame.transform.scale(90, 90)
+        sector_surf2 = pygame.image.load("resources/sector2.png").convert()
+        sector_surf2 = pygame.transform.scale(90, 90)
+        self.sector_surf_list = [sector_surf1, sector_surf2]
 
 # class Player(pygame.sprite.Sprite):
 #     def __init__(self):
