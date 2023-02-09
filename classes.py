@@ -4,20 +4,33 @@ from sys import exit
 
 
 class Sector(pygame.sprite.Sprite):
+  def __init__(self, cords):
+    super().__init__()
+    self.cords = cords
+    sector_surf1 = pygame.image.load("resources/sector1.png").convert()
+    sector_surf1 = pygame.transform.scale(sector_surf1, (90, 90))
+    sector_surf2 = pygame.image.load("resources/sector2.png").convert()
+    sector_surf2 = pygame.transform.scale(sector_surf2, (90, 90))
+    if (cords[0] % 2 == 1 and cords[1] % 2 == 1) or (cords[0] % 2 == 0 and cords[1] % 2 == 0):
+      self.image = sector_surf1
+    else:
+      self.image = sector_surf2
+    self.rect = self.image.get_rect(topright = (cords[0]*90+235, cords[1]*90-90))
 
-    def __init__(self):
-        super().__init__()
-        global board_cords
-        sector_surf1 = pygame.image.load("resources/sector1.png").convert()
-        sector_surf1 = pygame.transform.scale(90, 90)
-        sector_surf2 = pygame.image.load("resources/sector2.png").convert()
-        sector_surf2 = pygame.transform.scale(90, 90)
-        if board_cords[0] % 2 == 1 and board_cords[1] % 2 == 1 or board_cords[
-                0] % 2 == 0 and board_cords[1] % 2 == 0:
-            self.image = sector_surf1
-            self.rect = self.image.get_rect(center=(x, y))
-        else:
-            self.image = sector_surf2
+class Pawn(pygame.sprite.Sprite):
+  def __init__(self, cords, team = "Blue"):
+    super().__init__()
+    self.cords = cords
+    pawn_surf_blue = pygame.image.load("resources/pawn_blu.png").convert()
+    pawn_surf_blue = pygame.transform.scale(sector_surf1, (90, 90))
+    pawn_surf_black = pygame.image.load("resources/pawn_blak.png").convert()
+    pawn_surf_black = pygame.transform.scale(sector_surf1, (90, 90))
+    self.team = team
+    if team == "Black":
+      self.image = pawn_surf_black
+    else:
+      self.image = pawn_surf_blue
+    self.rect = self.image.get_rect(topright = (cords[0]*90+235, cords[1]*90-90))
 
 
 # class Player(pygame.sprite.Sprite):
