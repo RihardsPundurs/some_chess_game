@@ -1,12 +1,24 @@
+import pygame
+from random import randint
+from sys import exit
+
+
 class Sector(pygame.sprite.Sprite):
+
     def __init__(self):
         super().__init__()
+        global board_cords
         sector_surf1 = pygame.image.load("resources/sector1.png").convert()
         sector_surf1 = pygame.transform.scale(90, 90)
         sector_surf2 = pygame.image.load("resources/sector2.png").convert()
         sector_surf2 = pygame.transform.scale(90, 90)
-        self.sector_surf_list = [sector_surf1, sector_surf2]
-        
+        if board_cords[0] % 2 == 1 and board_cords[1] % 2 == 1 or board_cords[
+                0] % 2 == 0 and board_cords[1] % 2 == 0:
+            self.image = sector_surf1
+            self.rect = self.image.get_rect(center=(x, y))
+        else:
+            self.image = sector_surf2
+
 
 # class Player(pygame.sprite.Sprite):
 #     def __init__(self):
