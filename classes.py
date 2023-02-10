@@ -4,33 +4,60 @@ from sys import exit
 
 
 class Sector(pygame.sprite.Sprite):
-  def __init__(self, cords):
-    super().__init__()
-    self.cords = cords
-    sector_surf1 = pygame.image.load("resources/sector1.png").convert()
-    sector_surf1 = pygame.transform.scale(sector_surf1, (90, 90))
-    sector_surf2 = pygame.image.load("resources/sector2.png").convert()
-    sector_surf2 = pygame.transform.scale(sector_surf2, (90, 90))
-    if (cords[0] % 2 == 1 and cords[1] % 2 == 1) or (cords[0] % 2 == 0 and cords[1] % 2 == 0):
-      self.image = sector_surf1
-    else:
-      self.image = sector_surf2
-    self.rect = self.image.get_rect(topright = (cords[0]*90+235, cords[1]*90-90))
+
+    def __init__(self, cords):
+        super().__init__()
+        self.cords = cords
+        sector_surf1 = pygame.image.load("resources/sector1.png").convert()
+        sector_surf1 = pygame.transform.scale(sector_surf1, (90, 90))
+        sector_surf2 = pygame.image.load("resources/sector2.png").convert()
+        sector_surf2 = pygame.transform.scale(sector_surf2, (90, 90))
+        if (cords[0] % 2 == 1
+                and cords[1] % 2 == 1) or (cords[0] % 2 == 0
+                                           and cords[1] % 2 == 0):
+            self.image = sector_surf1
+        else:
+            self.image = sector_surf2
+        self.rect = self.image.get_rect(topright=(cords[0] * 90 + 235,
+                                                  cords[1] * 90 - 90))
+
+    def check_click(self, mouse):
+        if self.rect.collidepoint(mouse):
+            print("hit GREEN")
+            print(self.cords)
+            return self.cords
+
 
 class Pawn(pygame.sprite.Sprite):
-  def __init__(self, cords, team = "Blue"):
-    super().__init__()
-    self.cords = cords
-    pawn_surf_blue = pygame.image.load("resources/pawn_blu.png").convert()
-    pawn_surf_blue = pygame.transform.scale(sector_surf1, (90, 90))
-    pawn_surf_black = pygame.image.load("resources/pawn_blak.png").convert()
-    pawn_surf_black = pygame.transform.scale(sector_surf1, (90, 90))
-    self.team = team
-    if team == "Black":
-      self.image = pawn_surf_black
-    else:
-      self.image = pawn_surf_blue
-    self.rect = self.image.get_rect(topright = (cords[0]*90+235, cords[1]*90-90))
+
+    def __init__(self, cords, team="Blue"):
+        super().__init__()
+        self.cords = cords
+        pawn_surf_blue = pygame.image.load(
+            "resources/Finished pices/Pawn1.png").convert_alpha()
+        pawn_surf_blue = pygame.transform.scale(pawn_surf_blue, (90, 90))
+        pawn_surf_black = pygame.image.load(
+            "resources/Finished pices/Pawn2.png").convert_alpha()
+        pawn_surf_black = pygame.transform.scale(pawn_surf_black, (90, 90))
+        self.team = team
+        if team == "Black":
+            self.image = pawn_surf_black
+        else:
+            self.image = pawn_surf_blue
+        self.rect = self.image.get_rect(topright=(cords[0] * 90 + 235,
+                                                  cords[1] * 90 - 90))
+
+    def check_click(self, mouse):
+        if self.rect.collidepoint(mouse):
+            print("hit RED")
+            return True
+
+    def move(self, cords):
+        print(cords)
+        self.rect.x = cords[0] * 90 + 145
+        self.rect.y = cords[1] * 90 - 90
+        self.cords = cords
+        print("Done")
 
 
 # class Player(pygame.sprite.Sprite):
