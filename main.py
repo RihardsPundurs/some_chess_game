@@ -10,6 +10,7 @@ clock = pygame.time.Clock()
 game_active = False
 lift = [False, None]
 set_cords = [None, None]
+info = []
 
 test_font = pygame.font.Font(None, 50)
 
@@ -26,8 +27,11 @@ for i1 in range(1, 10):
   for i2 in range(1, 10):
     board.add(Sector([i1, i2]))
 
-pawn = pygame.sprite.GroupSingle()
-pawn.add(Pawn([1, 1], "Black"))
+pieces = pygame.sprite.Group()
+pieces.add(Pawn([1, 1], len(info), "Black"))
+info.append(["Pawn", "Black", [1, 1]])
+pieces.add(Pawn([2, 1], len(info), "Black"))
+info.append(["Pawn", "Black", [2, 1]])
 
 while True:
   for event in pygame.event.get():
@@ -42,19 +46,31 @@ while True:
 
     elif event.type == pygame.MOUSEBUTTONDOWN:
       if not lift[0]:
-        for i in pawn:
+        for i in pieces:
           lift[0] = i.check_click(event.pos)
           if lift[0]:
             lift[1] = i
             break
       else:
-        for i in board:
-          set_cords = i.check_click(event.pos)
+        for i1 in board:
+          set_cords = i1.check_click(event.pos)
           if set_cords != None:
-            lift[1].move(set_cords)
-            set_cords = None
-            lift = [False, None]
-            break
+            piece_cords = []
+            for i2 in info:
+              piece_cords.append(i2[2])
+            if set_cords not in piece_cords:
+              lift[1].move(set_cords)
+              info[lift[1].tag][2] = set_cords
+              set_cords = None
+              lift = [False, None]
+              break
+            # if set_cords in piece_cords:
+            #   lift[1].move(set_cords)
+            #   info[lift[1].tag][2] = set_cords
+            #   set_cords = None
+            #   lift = [False, None]
+            #   break
+
 
 
 
@@ -71,8 +87,8 @@ while True:
     screen.blit(bg_surf, bg_rect)
     board.draw(screen)
     board.update()
-    pawn.draw(screen)
-    pawn.update()
+    pieces.draw(screen)
+    pieces.update()
 
   else:
     screen.blit(bg_surf, bg_rect)

@@ -27,25 +27,12 @@ class Sector(pygame.sprite.Sprite):
             print(self.cords)
             return self.cords
 
-
-class Pawn(pygame.sprite.Sprite):
-
-    def __init__(self, cords, team="Blue"):
+class Piece(pygame.sprite.Sprite):
+    def __init__(self, cords, tag, team="Blue"):
         super().__init__()
+        self.tag = tag
         self.cords = cords
-        pawn_surf_blue = pygame.image.load(
-            "resources/Finished pices/Pawn1.png").convert_alpha()
-        pawn_surf_blue = pygame.transform.scale(pawn_surf_blue, (90, 90))
-        pawn_surf_black = pygame.image.load(
-            "resources/Finished pices/Pawn2.png").convert_alpha()
-        pawn_surf_black = pygame.transform.scale(pawn_surf_black, (90, 90))
         self.team = team
-        if team == "Black":
-            self.image = pawn_surf_black
-        else:
-            self.image = pawn_surf_blue
-        self.rect = self.image.get_rect(topright=(cords[0] * 90 + 235,
-                                                  cords[1] * 90 - 90))
 
     def check_click(self, mouse):
         if self.rect.collidepoint(mouse):
@@ -59,6 +46,22 @@ class Pawn(pygame.sprite.Sprite):
         self.cords = cords
         print("Done")
 
+    # def take(self, cords)
+
+
+class Pawn(Piece):
+    def __init__(self, cords, tag, team="Blue"):
+        super().__init__(cords, tag, team="Blue")
+        self.type = "Pawn"
+        surf_black = pygame.image.load("resources/Finished pices/Pawn1.png").convert_alpha()
+        surf_black = pygame.transform.scale(surf_black, (90, 90))
+        surf_blue = pygame.image.load("resources/Finished pices/Pawn2.png").convert_alpha()
+        surf_blue = pygame.transform.scale(surf_blue, (90, 90))
+        if team == "Black":
+            self.image = surf_black
+        else:
+            self.image = surf_blue
+        self.rect = self.image.get_rect(topright=(cords[0] * 90 + 235, cords[1] * 90 - 90))
 
 # class Player(pygame.sprite.Sprite):
 #     def __init__(self):
