@@ -30,8 +30,12 @@ for i1 in range(1, 10):
 pieces = pygame.sprite.Group()
 pieces.add(Pawn([1, 1], len(info), "Black"))
 info.append(["Pawn", "Black", [1, 1]])
-pieces.add(Pawn([2, 1], len(info), "Black"))
-info.append(["Pawn", "Black", [2, 1]])
+pieces.add(Pawn([2, 1], len(info), "Blue"))
+info.append(["Pawn", "Blue", [2, 1]])
+pieces.add(Pawn([3, 1], len(info), "Black"))
+info.append(["Pawn", "Black", [3, 1]])
+pieces.add(Pawn([2, 2], len(info), "Black"))
+info.append(["Pawn", "Black", [2, 2]])
 
 while True:
   for event in pygame.event.get():
@@ -56,20 +60,34 @@ while True:
           set_cords = i1.check_click(event.pos)
           if set_cords != None:
             piece_cords = []
+            piece_teams = []
             for i2 in info:
               piece_cords.append(i2[2])
+              piece_teams.append(i2[1])
             if set_cords not in piece_cords:
               lift[1].move(set_cords)
               info[lift[1].tag][2] = set_cords
               set_cords = None
               lift = [False, None]
               break
-            # if set_cords in piece_cords:
-            #   lift[1].move(set_cords)
-            #   info[lift[1].tag][2] = set_cords
-            #   set_cords = None
-            #   lift = [False, None]
-            #   break
+            if set_cords in piece_cords:
+              if lift[1].team != info[piece_cords.index(set_cords)][1]:
+                lift[1].move(set_cords)
+                lift[1].take()
+                info[lift[1].tag][2] = set_cords
+                lift = [False, None]
+                i3 = None
+                for i4 in range(piece_cords.index(set_cords), len(info)-1):
+                  for i5 in pieces:
+                    if i5.tag == i4+1:
+                      i5.tag = i4
+                info.pop(piece_cords.index(set_cords))
+                for i3 in pieces:
+                  if i3.tag == piece_cords.index(set_cords):
+                    i3.destroy()
+                    break
+                set_cords = None
+                break
 
 
 
