@@ -23,19 +23,29 @@ bg_surf = pygame.transform.scale(bg_surf, (1280, 720))
 bg_rect = bg_surf.get_rect(center=(640, 360))
 
 board = pygame.sprite.Group()
-for i1 in range(1, 10):
-  for i2 in range(1, 10):
+for i1 in range(1, 9):
+  for i2 in range(1, 9):
     board.add(Sector([i1, i2]))
 
 pieces = pygame.sprite.Group()
-pieces.add(Pawn([1, 1], len(info), "Black"))
-info.append(["Pawn", "Black", [1, 1]])
-pieces.add(Pawn([2, 1], len(info), "Blue"))
-info.append(["Pawn", "Blue", [2, 1]])
-pieces.add(Pawn([3, 1], len(info), "Black"))
-info.append(["Pawn", "Black", [3, 1]])
-pieces.add(Pawn([2, 2], len(info), "Black"))
-info.append(["Pawn", "Black", [2, 2]])
+pieces.add(Elephant([1, 1], len(info), "Black"))
+info.append(["Elephant", "Black", [1, 1]])
+pieces.add(Flamingo([2, 1], len(info), "Black"))
+info.append(["Flamingo", "Black", [2, 1]])
+pieces.add(Friend([3, 1], len(info), "Black"))
+info.append(["Friend", "Black", [3, 1]])
+pieces.add(GoldGeneral([4, 1], len(info), "Black"))
+info.append(["GoldGeneral", "Black", [4, 1]])
+pieces.add(ZagZag([5, 1], len(info), "Black"))
+info.append(["ZagZag", "Black", [5, 1]])
+pieces.add(ZagZig([6, 1], len(info), "Black"))
+info.append(["ZagZig", "Black", [6, 1]])
+pieces.add(ZigZag([7, 1], len(info), "Black"))
+info.append(["ZigZag", "Black", [7, 1]])
+pieces.add(ZigZig([8, 1], len(info), "Black"))
+info.append(["ZigZig", "Black", [8, 1]])
+pieces.add(Pawn([1, 2], len(info), "Black"))
+info.append(["Pawn", "Black", [1, 2]])
 
 while True:
   for event in pygame.event.get():
