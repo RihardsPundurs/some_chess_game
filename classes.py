@@ -31,6 +31,7 @@ class Pawn(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[], [], []]
         self.cords = cords
         self.team = team
         self.type = "Pawn"
@@ -51,7 +52,7 @@ class Pawn(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -62,10 +63,23 @@ class Pawn(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
+    def update(self):
+        if self.team == "Black":
+            if self.cords[1] > 4:
+                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+        else:
+            if self.cords[1] < 5:
+                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+
 class Elephant(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[], [], [], []]
         self.cords = cords
         self.team = team
         self.type = "Elephant"
@@ -86,7 +100,7 @@ class Elephant(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -97,10 +111,17 @@ class Elephant(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
+    def update(self):
+        self.steps[0] = [self.cords[0] - 2, self.cords[1] - 2]
+        self.steps[1] = [self.cords[0] - 2, self.cords[1] + 2]
+        self.steps[2] = [self.cords[0] + 2, self.cords[1] - 2]
+        self.steps[3] = [self.cords[0] + 2, self.cords[1] + 2]
+
 class Flamingo(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[], [], [], [], [], [], [], []]
         self.cords = cords
         self.team = team
         self.type = "Flamingo"
@@ -121,7 +142,7 @@ class Flamingo(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -132,10 +153,21 @@ class Flamingo(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
+    def update(self):
+        self.steps[0] = [self.cords[0] + 6, self.cords[1] - 1]
+        self.steps[1] = [self.cords[0] + 6, self.cords[1] + 1]
+        self.steps[2] = [self.cords[0] - 6, self.cords[1] - 1]
+        self.steps[3] = [self.cords[0] - 6, self.cords[1] + 1]
+        self.steps[4] = [self.cords[0] + 1, self.cords[1] + 6]
+        self.steps[5] = [self.cords[0] - 1, self.cords[1] + 6]
+        self.steps[6] = [self.cords[0] + 1, self.cords[1] - 6]
+        self.steps[7] = [self.cords[0] - 1, self.cords[1] - 6]
+
 class Friend(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = []
         self.cords = cords
         self.team = team
         self.type = "Pawn"
@@ -156,7 +188,7 @@ class Friend(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -171,6 +203,7 @@ class GoldGeneral(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[],[],[],[],[],[]]
         self.cords = cords
         self.team = team
         self.type = "GoldGeneral"
@@ -191,7 +224,7 @@ class GoldGeneral(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -202,10 +235,27 @@ class GoldGeneral(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
+    def update(self):
+        if self.team == "Black":
+            self.steps[0] = [self.cords[0] + 1, self.cords[1] + 1]
+            self.steps[1] = [self.cords[0] - 1, self.cords[1] + 1]
+            self.steps[2] = [self.cords[0], self.cords[1] + 1]
+            self.steps[3] = [self.cords[0] + 1, self.cords[1]]
+            self.steps[4] = [self.cords[0] - 1, self.cords[1]]
+            self.steps[5] = [self.cords[0], self.cords[1] - 1]
+        else:
+            self.steps[0] = [self.cords[0] + 1, self.cords[1] - 1]
+            self.steps[1] = [self.cords[0] - 1, self.cords[1] - 1]
+            self.steps[2] = [self.cords[0], self.cords[1] - 1]
+            self.steps[3] = [self.cords[0] + 1, self.cords[1]]
+            self.steps[4] = [self.cords[0] - 1, self.cords[1]]
+            self.steps[5] = [self.cords[0], self.cords[1] + 1]
+
 class ZagZag(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
         self.cords = cords
         self.team = team
         self.type = "ZagZag"
@@ -226,7 +276,7 @@ class ZagZag(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -237,10 +287,41 @@ class ZagZag(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
+    def update(self):
+        self.steps[0] = [self.cords[0], self.cords[1] + 1]
+        self.steps[1] = [self.cords[0], self.cords[1] + 2]
+        self.steps[2] = [self.cords[0], self.cords[1] + 3]
+        self.steps[3] = [self.cords[0], self.cords[1] + 4]
+        self.steps[4] = [self.cords[0], self.cords[1] + 5]
+        self.steps[5] = [self.cords[0], self.cords[1] + 6]
+        self.steps[6] = [self.cords[0], self.cords[1] + 7]
+        self.steps[7] = [self.cords[0], self.cords[1] - 1]
+        self.steps[8] = [self.cords[0], self.cords[1] - 2]
+        self.steps[9] = [self.cords[0], self.cords[1] - 3]
+        self.steps[10] = [self.cords[0], self.cords[1] - 4]
+        self.steps[11] = [self.cords[0], self.cords[1] - 5]
+        self.steps[12] = [self.cords[0], self.cords[1] - 6]
+        self.steps[13] = [self.cords[0], self.cords[1] - 7]
+        self.steps[14] = [self.cords[0] - 1, self.cords[1] + 1]
+        self.steps[15] = [self.cords[0] - 2, self.cords[1] + 2]
+        self.steps[16] = [self.cords[0] - 3, self.cords[1] + 3]
+        self.steps[17] = [self.cords[0] - 4, self.cords[1] + 4]
+        self.steps[18] = [self.cords[0] - 5, self.cords[1] + 5]
+        self.steps[19] = [self.cords[0] - 6, self.cords[1] + 6]
+        self.steps[20] = [self.cords[0] - 7, self.cords[1] + 7]
+        self.steps[21] = [self.cords[0] + 1, self.cords[1] - 1]
+        self.steps[22] = [self.cords[0] + 2, self.cords[1] - 2]
+        self.steps[23] = [self.cords[0] + 3, self.cords[1] - 3]
+        self.steps[24] = [self.cords[0] + 4, self.cords[1] - 4]
+        self.steps[25] = [self.cords[0] + 5, self.cords[1] - 5]
+        self.steps[26] = [self.cords[0] + 6, self.cords[1] - 6]
+        self.steps[27] = [self.cords[0] + 7, self.cords[1] - 7]
+
 class ZagZig(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
         self.cords = cords
         self.team = team
         self.type = "ZagZig"
@@ -261,7 +342,7 @@ class ZagZig(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -272,10 +353,41 @@ class ZagZig(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
+    def update(self):
+        self.steps[0] = [self.cords[0], self.cords[1] + 1]
+        self.steps[1] = [self.cords[0], self.cords[1] + 2]
+        self.steps[2] = [self.cords[0], self.cords[1] + 3]
+        self.steps[3] = [self.cords[0], self.cords[1] + 4]
+        self.steps[4] = [self.cords[0], self.cords[1] + 5]
+        self.steps[5] = [self.cords[0], self.cords[1] + 6]
+        self.steps[6] = [self.cords[0], self.cords[1] + 7]
+        self.steps[7] = [self.cords[0], self.cords[1] - 1]
+        self.steps[8] = [self.cords[0], self.cords[1] - 2]
+        self.steps[9] = [self.cords[0], self.cords[1] - 3]
+        self.steps[10] = [self.cords[0], self.cords[1] - 4]
+        self.steps[11] = [self.cords[0], self.cords[1] - 5]
+        self.steps[12] = [self.cords[0], self.cords[1] - 6]
+        self.steps[13] = [self.cords[0], self.cords[1] - 7]
+        self.steps[14] = [self.cords[0] + 1, self.cords[1] + 1]
+        self.steps[15] = [self.cords[0] + 2, self.cords[1] + 2]
+        self.steps[16] = [self.cords[0] + 3, self.cords[1] + 3]
+        self.steps[17] = [self.cords[0] + 4, self.cords[1] + 4]
+        self.steps[18] = [self.cords[0] + 5, self.cords[1] + 5]
+        self.steps[19] = [self.cords[0] + 6, self.cords[1] + 6]
+        self.steps[20] = [self.cords[0] + 7, self.cords[1] + 7]
+        self.steps[21] = [self.cords[0] - 1, self.cords[1] - 1]
+        self.steps[22] = [self.cords[0] - 2, self.cords[1] - 2]
+        self.steps[23] = [self.cords[0] - 3, self.cords[1] - 3]
+        self.steps[24] = [self.cords[0] - 4, self.cords[1] - 4]
+        self.steps[25] = [self.cords[0] - 5, self.cords[1] - 5]
+        self.steps[26] = [self.cords[0] - 6, self.cords[1] - 6]
+        self.steps[27] = [self.cords[0] - 7, self.cords[1] - 7]
+
 class ZigZag(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
         self.cords = cords
         self.team = team
         self.type = "ZigZag"
@@ -296,7 +408,7 @@ class ZigZag(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -307,10 +419,41 @@ class ZigZag(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
+    def update(self):
+        self.steps[0] = [self.cords[0] + 1, self.cords[1]]
+        self.steps[1] = [self.cords[0] + 2, self.cords[1]]
+        self.steps[2] = [self.cords[0] + 3, self.cords[1]]
+        self.steps[3] = [self.cords[0] + 4, self.cords[1]]
+        self.steps[4] = [self.cords[0] + 5, self.cords[1]]
+        self.steps[5] = [self.cords[0] + 6, self.cords[1]]
+        self.steps[6] = [self.cords[0] + 7, self.cords[1]]
+        self.steps[7] = [self.cords[0] - 1, self.cords[1]]
+        self.steps[8] = [self.cords[0] - 2, self.cords[1]]
+        self.steps[9] = [self.cords[0] - 3, self.cords[1]]
+        self.steps[10] = [self.cords[0] - 4, self.cords[1]]
+        self.steps[11] = [self.cords[0] - 5, self.cords[1]]
+        self.steps[12] = [self.cords[0] - 6, self.cords[1]]
+        self.steps[13] = [self.cords[0] - 7, self.cords[1]]
+        self.steps[14] = [self.cords[0] - 1, self.cords[1] + 1]
+        self.steps[15] = [self.cords[0] - 2, self.cords[1] + 2]
+        self.steps[16] = [self.cords[0] - 3, self.cords[1] + 3]
+        self.steps[17] = [self.cords[0] - 4, self.cords[1] + 4]
+        self.steps[18] = [self.cords[0] - 5, self.cords[1] + 5]
+        self.steps[19] = [self.cords[0] - 6, self.cords[1] + 6]
+        self.steps[20] = [self.cords[0] - 7, self.cords[1] + 7]
+        self.steps[21] = [self.cords[0] + 1, self.cords[1] - 1]
+        self.steps[22] = [self.cords[0] + 2, self.cords[1] - 2]
+        self.steps[23] = [self.cords[0] + 3, self.cords[1] - 3]
+        self.steps[24] = [self.cords[0] + 4, self.cords[1] - 4]
+        self.steps[25] = [self.cords[0] + 5, self.cords[1] - 5]
+        self.steps[26] = [self.cords[0] + 6, self.cords[1] - 6]
+        self.steps[27] = [self.cords[0] + 7, self.cords[1] - 7]
+
 class ZigZig(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
+        self.steps = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
         self.cords = cords
         self.team = team
         self.type = "ZigZig"
@@ -331,7 +474,7 @@ class ZigZig(pygame.sprite.Sprite):
 
     def move(self, cords):
         # print(cords)
-        self.rect.x = cords[0] * 90 + 145
+        self.rect.x = cords[0] * 90 + 190
         self.rect.y = cords[1] * 90 - 90
         self.cords = cords
         # print("Done")
@@ -341,6 +484,36 @@ class ZigZig(pygame.sprite.Sprite):
 
     def destroy(self):
         self.kill()
+
+    def update(self):
+        self.steps[0] = [self.cords[0] + 1, self.cords[1]]
+        self.steps[1] = [self.cords[0] + 2, self.cords[1]]
+        self.steps[2] = [self.cords[0] + 3, self.cords[1]]
+        self.steps[3] = [self.cords[0] + 4, self.cords[1]]
+        self.steps[4] = [self.cords[0] + 5, self.cords[1]]
+        self.steps[5] = [self.cords[0] + 6, self.cords[1]]
+        self.steps[6] = [self.cords[0] + 7, self.cords[1]]
+        self.steps[7] = [self.cords[0] - 1, self.cords[1]]
+        self.steps[8] = [self.cords[0] - 2, self.cords[1]]
+        self.steps[9] = [self.cords[0] - 3, self.cords[1]]
+        self.steps[10] = [self.cords[0] - 4, self.cords[1]]
+        self.steps[11] = [self.cords[0] - 5, self.cords[1]]
+        self.steps[12] = [self.cords[0] - 6, self.cords[1]]
+        self.steps[13] = [self.cords[0] - 7, self.cords[1]]
+        self.steps[14] = [self.cords[0] + 1, self.cords[1] + 1]
+        self.steps[15] = [self.cords[0] + 2, self.cords[1] + 2]
+        self.steps[16] = [self.cords[0] + 3, self.cords[1] + 3]
+        self.steps[17] = [self.cords[0] + 4, self.cords[1] + 4]
+        self.steps[18] = [self.cords[0] + 5, self.cords[1] + 5]
+        self.steps[19] = [self.cords[0] + 6, self.cords[1] + 6]
+        self.steps[20] = [self.cords[0] + 7, self.cords[1] + 7]
+        self.steps[21] = [self.cords[0] - 1, self.cords[1] - 1]
+        self.steps[22] = [self.cords[0] - 2, self.cords[1] - 2]
+        self.steps[23] = [self.cords[0] - 3, self.cords[1] - 3]
+        self.steps[24] = [self.cords[0] - 4, self.cords[1] - 4]
+        self.steps[25] = [self.cords[0] - 5, self.cords[1] - 5]
+        self.steps[26] = [self.cords[0] - 6, self.cords[1] - 6]
+        self.steps[27] = [self.cords[0] - 7, self.cords[1] - 7]
 
 # class Player(pygame.sprite.Sprite):
 #     def __init__(self):

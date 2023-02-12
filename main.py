@@ -47,6 +47,25 @@ info.append(["ZigZig", "Black", [8, 1]])
 pieces.add(Pawn([1, 2], len(info), "Black"))
 info.append(["Pawn", "Black", [1, 2]])
 
+pieces.add(Elephant([1, 8], len(info), "Blue"))
+info.append(["Elephant", "Blue", [1, 8]])
+pieces.add(Flamingo([2, 8], len(info), "Blue"))
+info.append(["Flamingo", "Blue", [2, 8]])
+pieces.add(Friend([3, 8], len(info), "Blue"))
+info.append(["Friend", "Blue", [3, 8]])
+pieces.add(GoldGeneral([4, 8], len(info), "Blue"))
+info.append(["GoldGeneral", "Blue", [4, 8]])
+pieces.add(ZagZag([5, 8], len(info), "Blue"))
+info.append(["ZagZag", "Blue", [5, 8]])
+pieces.add(ZagZig([6, 8], len(info), "Blue"))
+info.append(["ZagZig", "Blue", [6, 8]])
+pieces.add(ZigZag([7, 8], len(info), "Blue"))
+info.append(["ZigZag", "Blue", [7, 8]])
+pieces.add(ZigZig([8, 8], len(info), "Blue"))
+info.append(["ZigZig", "Blue", [8, 8]])
+pieces.add(Pawn([1, 7], len(info), "Blue"))
+info.append(["Pawn", "Blue", [1, 7]])
+
 while True:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
@@ -68,7 +87,7 @@ while True:
       else:
         for i1 in board:
           set_cords = i1.check_click(event.pos)
-          if set_cords != None:
+          if set_cords != None and set_cords in i.steps:
             piece_cords = []
             piece_teams = []
             for i2 in info:
