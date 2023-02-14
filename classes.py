@@ -63,7 +63,7 @@ class Pawn(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         if self.team == "Black":
             if self.cords[1] > 4:
                 self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
@@ -74,6 +74,13 @@ class Pawn(pygame.sprite.Sprite):
                 self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
                 self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
             self.steps[0] = [self.cords[0], self.cords[1] - 1]
+        for i in friend_cords:
+            if i[0] in self.steps:
+                return friend_cords, [self.tag, self.type], False
+            else:
+                if [self.tag, self.type] in i:
+                    return friend_cords, [self.tag, self.type], True
+                    break
 
 class Elephant(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -111,7 +118,7 @@ class Elephant(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         self.steps[0] = [self.cords[0] - 2, self.cords[1] - 2]
         self.steps[1] = [self.cords[0] - 2, self.cords[1] + 2]
         self.steps[2] = [self.cords[0] + 2, self.cords[1] - 2]
@@ -153,7 +160,7 @@ class Flamingo(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         self.steps[0] = [self.cords[0] + 6, self.cords[1] - 1]
         self.steps[1] = [self.cords[0] + 6, self.cords[1] + 1]
         self.steps[2] = [self.cords[0] - 6, self.cords[1] - 1]
@@ -170,7 +177,7 @@ class Friend(pygame.sprite.Sprite):
         self.steps = []
         self.cords = cords
         self.team = team
-        self.type = "Pawn"
+        self.type = "Friend"
         surf_black = pygame.image.load("resources/Finished pices/Friend2.png").convert_alpha()
         surf_black = pygame.transform.scale(surf_black, (90, 90))
         surf_blue = pygame.image.load("resources/Finished pices/Friend1.png").convert_alpha()
@@ -235,7 +242,7 @@ class GoldGeneral(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         if self.team == "Black":
             self.steps[0] = [self.cords[0] + 1, self.cords[1] + 1]
             self.steps[1] = [self.cords[0] - 1, self.cords[1] + 1]
@@ -287,7 +294,7 @@ class ZagZag(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         self.steps[0] = [self.cords[0], self.cords[1] + 1]
         self.steps[1] = [self.cords[0], self.cords[1] + 2]
         self.steps[2] = [self.cords[0], self.cords[1] + 3]
@@ -353,7 +360,7 @@ class ZagZig(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         self.steps[0] = [self.cords[0], self.cords[1] + 1]
         self.steps[1] = [self.cords[0], self.cords[1] + 2]
         self.steps[2] = [self.cords[0], self.cords[1] + 3]
@@ -419,7 +426,7 @@ class ZigZag(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         self.steps[0] = [self.cords[0] + 1, self.cords[1]]
         self.steps[1] = [self.cords[0] + 2, self.cords[1]]
         self.steps[2] = [self.cords[0] + 3, self.cords[1]]
@@ -485,7 +492,7 @@ class ZigZig(pygame.sprite.Sprite):
     def destroy(self):
         self.kill()
 
-    def update(self):
+    def update(self, friend_cords):
         self.steps[0] = [self.cords[0] + 1, self.cords[1]]
         self.steps[1] = [self.cords[0] + 2, self.cords[1]]
         self.steps[2] = [self.cords[0] + 3, self.cords[1]]

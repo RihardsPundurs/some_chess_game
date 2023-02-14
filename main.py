@@ -66,6 +66,13 @@ info.append(["ZigZig", "Blue", [8, 8]])
 pieces.add(Pawn([1, 7], len(info), "Blue"))
 info.append(["Pawn", "Blue", [1, 7]])
 
+friend_cords = []
+for i in pieces:
+  if i.type == "Friend":
+    friend_cords.append([i.cords])
+
+print(friend_cords)
+
 while True:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
@@ -135,7 +142,8 @@ while True:
     board.draw(screen)
     board.update()
     pieces.draw(screen)
-    pieces.update()
+    friend_cords = pieces.update(friend_cords)
+    print(friend_cords)
 
   else:
     screen.blit(bg_surf, bg_rect)
