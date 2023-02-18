@@ -60,7 +60,7 @@ class Pawn(pygame.sprite.Sprite):
     def take(self): #, cords
         print("zahamn")
 
-    def destroy(self):
+    def destroy(self ):
         self.kill()
 
     def update(self, friend_cords):
@@ -74,13 +74,19 @@ class Pawn(pygame.sprite.Sprite):
                 self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
                 self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
             self.steps[0] = [self.cords[0], self.cords[1] - 1]
-        for i in friend_cords:
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
             if i[0] in self.steps:
-                return friend_cords, [self.tag, self.type], False
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
             else:
                 if [self.tag, self.type] in i:
-                    return friend_cords, [self.tag, self.type], True
-                    break
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("1", friend_cords)
+        return friend_cords
+
+
 
 class Elephant(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -123,6 +129,17 @@ class Elephant(pygame.sprite.Sprite):
         self.steps[1] = [self.cords[0] - 2, self.cords[1] + 2]
         self.steps[2] = [self.cords[0] + 2, self.cords[1] - 2]
         self.steps[3] = [self.cords[0] + 2, self.cords[1] + 2]
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("2", friend_cords)
+        return friend_cords
 
 class Flamingo(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -169,6 +186,17 @@ class Flamingo(pygame.sprite.Sprite):
         self.steps[5] = [self.cords[0] - 1, self.cords[1] + 6]
         self.steps[6] = [self.cords[0] + 1, self.cords[1] - 6]
         self.steps[7] = [self.cords[0] - 1, self.cords[1] - 6]
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("3", friend_cords)
+        return friend_cords
 
 class Friend(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -205,6 +233,113 @@ class Friend(pygame.sprite.Sprite):
 
     def destroy(self):
         self.kill()
+
+    def update(self, friend_cords):
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("4", friend_cords)
+        return friend_cords
+
+        for i2 in friend_cords:
+            if i2[0] == self.cords:
+                list_of_types = []
+                for i3 in i2:
+                    list_of_types.append(i3)
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                    if "Pawn" in list_of_types:
+                        if self.team == "Black":
+                            if self.cords[1] > 4:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                        else:
+                            if self.cords[1] < 5:
+                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
+                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
 
 class GoldGeneral(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -257,6 +392,17 @@ class GoldGeneral(pygame.sprite.Sprite):
             self.steps[3] = [self.cords[0] + 1, self.cords[1]]
             self.steps[4] = [self.cords[0] - 1, self.cords[1]]
             self.steps[5] = [self.cords[0], self.cords[1] + 1]
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("5", friend_cords)
+        return friend_cords
 
 class ZagZag(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -323,6 +469,17 @@ class ZagZag(pygame.sprite.Sprite):
         self.steps[25] = [self.cords[0] + 5, self.cords[1] - 5]
         self.steps[26] = [self.cords[0] + 6, self.cords[1] - 6]
         self.steps[27] = [self.cords[0] + 7, self.cords[1] - 7]
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("6", friend_cords)
+        return friend_cords
 
 class ZagZig(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -389,6 +546,17 @@ class ZagZig(pygame.sprite.Sprite):
         self.steps[25] = [self.cords[0] - 5, self.cords[1] - 5]
         self.steps[26] = [self.cords[0] - 6, self.cords[1] - 6]
         self.steps[27] = [self.cords[0] - 7, self.cords[1] - 7]
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("7", friend_cords)
+        return friend_cords
 
 class ZigZag(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -455,6 +623,17 @@ class ZigZag(pygame.sprite.Sprite):
         self.steps[25] = [self.cords[0] + 5, self.cords[1] - 5]
         self.steps[26] = [self.cords[0] + 6, self.cords[1] - 6]
         self.steps[27] = [self.cords[0] + 7, self.cords[1] - 7]
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("8", friend_cords)
+        return friend_cords
 
 class ZigZig(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -521,6 +700,17 @@ class ZigZig(pygame.sprite.Sprite):
         self.steps[25] = [self.cords[0] - 5, self.cords[1] - 5]
         self.steps[26] = [self.cords[0] - 6, self.cords[1] - 6]
         self.steps[27] = [self.cords[0] - 7, self.cords[1] - 7]
+        friend_cords = friend_cords
+        friend_copy = friend_cords
+        for i in friend_copy:
+            if i[0] in self.steps:
+                if [self.tag, self.type] not in i:
+                    friend_cords[friend_cords.index(i)].append([self.tag, self.type])
+            else:
+                if [self.tag, self.type] in i:
+                    friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
+        print("9", friend_cords)
+        return friend_cords
 
 # class Player(pygame.sprite.Sprite):
 #     def __init__(self):
