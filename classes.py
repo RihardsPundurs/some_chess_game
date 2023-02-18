@@ -83,7 +83,7 @@ class Pawn(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("1", friend_cords)
+        # print("1", friend_cords)
         return friend_cords
 
 
@@ -138,7 +138,7 @@ class Elephant(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("2", friend_cords)
+        # print("2", friend_cords)
         return friend_cords
 
 class Flamingo(pygame.sprite.Sprite):
@@ -195,14 +195,14 @@ class Flamingo(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("3", friend_cords)
+        # print("3", friend_cords)
         return friend_cords
 
 class Friend(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
         super().__init__()
         self.tag = tag
-        self.steps = []
+        self.steps = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
         self.cords = cords
         self.team = team
         self.type = "Friend"
@@ -244,8 +244,7 @@ class Friend(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("4", friend_cords)
-        return friend_cords
+        # print("4", friend_cords)
 
         for i2 in friend_cords:
             if i2[0] == self.cords:
@@ -263,83 +262,154 @@ class Friend(pygame.sprite.Sprite):
                                 self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
                                 self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
                             self.steps[0] = [self.cords[0], self.cords[1] - 1]
-                    if "Pawn" in list_of_types:
+                    if "Elephant" in list_of_types:
+                        self.steps[0 + 3] = [self.cords[0] - 2, self.cords[1] - 2]
+                        self.steps[1 + 3] = [self.cords[0] - 2, self.cords[1] + 2]
+                        self.steps[2 + 3] = [self.cords[0] + 2, self.cords[1] - 2]
+                        self.steps[3 + 3] = [self.cords[0] + 2, self.cords[1] + 2]
+                    if "Flamingo" in list_of_types:
+                        self.steps[0 + 7] = [self.cords[0] + 6, self.cords[1] - 1]
+                        self.steps[1 + 7] = [self.cords[0] + 6, self.cords[1] + 1]
+                        self.steps[2 + 7] = [self.cords[0] - 6, self.cords[1] - 1]
+                        self.steps[3 + 7] = [self.cords[0] - 6, self.cords[1] + 1]
+                        self.steps[4 + 7] = [self.cords[0] + 1, self.cords[1] + 6]
+                        self.steps[5 + 7] = [self.cords[0] - 1, self.cords[1] + 6]
+                        self.steps[6 + 7] = [self.cords[0] + 1, self.cords[1] - 6]
+                        self.steps[7 + 7] = [self.cords[0] - 1, self.cords[1] - 6]
+                    # if "Friend" in list_of_types:
+                    #     pass
+                    if "GoldGeneral" in list_of_types:
                         if self.team == "Black":
-                            if self.cords[1] > 4:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
+                            self.steps[0 + 15] = [self.cords[0] + 1, self.cords[1] + 1]
+                            self.steps[1 + 15] = [self.cords[0] - 1, self.cords[1] + 1]
+                            self.steps[2 + 15] = [self.cords[0], self.cords[1] + 1]
+                            self.steps[3 + 15] = [self.cords[0] + 1, self.cords[1]]
+                            self.steps[4 + 15] = [self.cords[0] - 1, self.cords[1]]
+                            self.steps[5 + 15] = [self.cords[0], self.cords[1] - 1]
                         else:
-                            if self.cords[1] < 5:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
-                    if "Pawn" in list_of_types:
-                        if self.team == "Black":
-                            if self.cords[1] > 4:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
-                        else:
-                            if self.cords[1] < 5:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
-                    if "Pawn" in list_of_types:
-                        if self.team == "Black":
-                            if self.cords[1] > 4:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
-                        else:
-                            if self.cords[1] < 5:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
-                    if "Pawn" in list_of_types:
-                        if self.team == "Black":
-                            if self.cords[1] > 4:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
-                        else:
-                            if self.cords[1] < 5:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
-                    if "Pawn" in list_of_types:
-                        if self.team == "Black":
-                            if self.cords[1] > 4:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
-                        else:
-                            if self.cords[1] < 5:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
-                    if "Pawn" in list_of_types:
-                        if self.team == "Black":
-                            if self.cords[1] > 4:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
-                        else:
-                            if self.cords[1] < 5:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
-                    if "Pawn" in list_of_types:
-                        if self.team == "Black":
-                            if self.cords[1] > 4:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] + 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] + 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] + 1]
-                        else:
-                            if self.cords[1] < 5:
-                                self.steps[1] = [self.cords[0] + 1, self.cords[1] - 1]
-                                self.steps[2] = [self.cords[0] - 1, self.cords[1] - 1]
-                            self.steps[0] = [self.cords[0], self.cords[1] - 1]
+                            self.steps[0 + 15] = [self.cords[0] + 1, self.cords[1] - 1]
+                            self.steps[1 + 15] = [self.cords[0] - 1, self.cords[1] - 1]
+                            self.steps[2 + 15] = [self.cords[0], self.cords[1] - 1]
+                            self.steps[3 + 15] = [self.cords[0] + 1, self.cords[1]]
+                            self.steps[4 + 15] = [self.cords[0] - 1, self.cords[1]]
+                            self.steps[5 + 15] = [self.cords[0], self.cords[1] + 1]
+                    if "ZagZag" in list_of_types:
+                        self.steps[0 + 21] = [self.cords[0], self.cords[1] + 1]
+                        self.steps[1 + 21] = [self.cords[0], self.cords[1] + 2]
+                        self.steps[2 + 21] = [self.cords[0], self.cords[1] + 3]
+                        self.steps[3 + 21] = [self.cords[0], self.cords[1] + 4]
+                        self.steps[4 + 21] = [self.cords[0], self.cords[1] + 5]
+                        self.steps[5 + 21] = [self.cords[0], self.cords[1] + 6]
+                        self.steps[6 + 21] = [self.cords[0], self.cords[1] + 7]
+                        self.steps[7 + 21] = [self.cords[0], self.cords[1] - 1]
+                        self.steps[8 + 21] = [self.cords[0], self.cords[1] - 2]
+                        self.steps[9 + 21] = [self.cords[0], self.cords[1] - 3]
+                        self.steps[10 + 21] = [self.cords[0], self.cords[1] - 4]
+                        self.steps[11 + 21] = [self.cords[0], self.cords[1] - 5]
+                        self.steps[12 + 21] = [self.cords[0], self.cords[1] - 6]
+                        self.steps[13 + 21] = [self.cords[0], self.cords[1] - 7]
+                        self.steps[14 + 21] = [self.cords[0] - 1, self.cords[1] + 1]
+                        self.steps[15 + 21] = [self.cords[0] - 2, self.cords[1] + 2]
+                        self.steps[16 + 21] = [self.cords[0] - 3, self.cords[1] + 3]
+                        self.steps[17 + 21] = [self.cords[0] - 4, self.cords[1] + 4]
+                        self.steps[18 + 21] = [self.cords[0] - 5, self.cords[1] + 5]
+                        self.steps[19 + 21] = [self.cords[0] - 6, self.cords[1] + 6]
+                        self.steps[20 + 21] = [self.cords[0] - 7, self.cords[1] + 7]
+                        self.steps[21 + 21] = [self.cords[0] + 1, self.cords[1] - 1]
+                        self.steps[22 + 21] = [self.cords[0] + 2, self.cords[1] - 2]
+                        self.steps[23 + 21] = [self.cords[0] + 3, self.cords[1] - 3]
+                        self.steps[24 + 21] = [self.cords[0] + 4, self.cords[1] - 4]
+                        self.steps[25 + 21] = [self.cords[0] + 5, self.cords[1] - 5]
+                        self.steps[26 + 21] = [self.cords[0] + 6, self.cords[1] - 6]
+                        self.steps[27 + 21] = [self.cords[0] + 7, self.cords[1] - 7]
+                    if "ZagZig" in list_of_types:
+                        self.steps[0 + 49] = [self.cords[0], self.cords[1] + 1]
+                        self.steps[1 + 49] = [self.cords[0], self.cords[1] + 2]
+                        self.steps[2 + 49] = [self.cords[0], self.cords[1] + 3]
+                        self.steps[3 + 49] = [self.cords[0], self.cords[1] + 4]
+                        self.steps[4 + 49] = [self.cords[0], self.cords[1] + 5]
+                        self.steps[5 + 49] = [self.cords[0], self.cords[1] + 6]
+                        self.steps[6 + 49] = [self.cords[0], self.cords[1] + 7]
+                        self.steps[7 + 49] = [self.cords[0], self.cords[1] - 1]
+                        self.steps[8 + 49] = [self.cords[0], self.cords[1] - 2]
+                        self.steps[9 + 49] = [self.cords[0], self.cords[1] - 3]
+                        self.steps[10 + 49] = [self.cords[0], self.cords[1] - 4]
+                        self.steps[11 + 49] = [self.cords[0], self.cords[1] - 5]
+                        self.steps[12 + 49] = [self.cords[0], self.cords[1] - 6]
+                        self.steps[13 + 49] = [self.cords[0], self.cords[1] - 7]
+                        self.steps[14 + 49] = [self.cords[0] + 1, self.cords[1] + 1]
+                        self.steps[15 + 49] = [self.cords[0] + 2, self.cords[1] + 2]
+                        self.steps[16 + 49] = [self.cords[0] + 3, self.cords[1] + 3]
+                        self.steps[17 + 49] = [self.cords[0] + 4, self.cords[1] + 4]
+                        self.steps[18 + 49] = [self.cords[0] + 5, self.cords[1] + 5]
+                        self.steps[19 + 49] = [self.cords[0] + 6, self.cords[1] + 6]
+                        self.steps[20 + 49] = [self.cords[0] + 7, self.cords[1] + 7]
+                        self.steps[21 + 49] = [self.cords[0] - 1, self.cords[1] - 1]
+                        self.steps[22 + 49] = [self.cords[0] - 2, self.cords[1] - 2]
+                        self.steps[23 + 49] = [self.cords[0] - 3, self.cords[1] - 3]
+                        self.steps[24 + 49] = [self.cords[0] - 4, self.cords[1] - 4]
+                        self.steps[25 + 49] = [self.cords[0] - 5, self.cords[1] - 5]
+                        self.steps[26 + 49] = [self.cords[0] - 6, self.cords[1] - 6]
+                        self.steps[27 + 49] = [self.cords[0] - 7, self.cords[1] - 7]
+                    if "ZigZag" in list_of_types:
+                        self.steps[0 + 77] = [self.cords[0] + 1, self.cords[1]]
+                        self.steps[1 + 77] = [self.cords[0] + 2, self.cords[1]]
+                        self.steps[2 + 77] = [self.cords[0] + 3, self.cords[1]]
+                        self.steps[3 + 77] = [self.cords[0] + 4, self.cords[1]]
+                        self.steps[4 + 77] = [self.cords[0] + 5, self.cords[1]]
+                        self.steps[5 + 77] = [self.cords[0] + 6, self.cords[1]]
+                        self.steps[6 + 77] = [self.cords[0] + 7, self.cords[1]]
+                        self.steps[7 + 77] = [self.cords[0] - 1, self.cords[1]]
+                        self.steps[8 + 77] = [self.cords[0] - 2, self.cords[1]]
+                        self.steps[9 + 77] = [self.cords[0] - 3, self.cords[1]]
+                        self.steps[10 + 77] = [self.cords[0] - 4, self.cords[1]]
+                        self.steps[11 + 77] = [self.cords[0] - 5, self.cords[1]]
+                        self.steps[12 + 77] = [self.cords[0] - 6, self.cords[1]]
+                        self.steps[13 + 77] = [self.cords[0] - 7, self.cords[1]]
+                        self.steps[14 + 77] = [self.cords[0] - 1, self.cords[1] + 1]
+                        self.steps[15 + 77] = [self.cords[0] - 2, self.cords[1] + 2]
+                        self.steps[16 + 77] = [self.cords[0] - 3, self.cords[1] + 3]
+                        self.steps[17 + 77] = [self.cords[0] - 4, self.cords[1] + 4]
+                        self.steps[18 + 77] = [self.cords[0] - 5, self.cords[1] + 5]
+                        self.steps[19 + 77] = [self.cords[0] - 6, self.cords[1] + 6]
+                        self.steps[20 + 77] = [self.cords[0] - 7, self.cords[1] + 7]
+                        self.steps[21 + 77] = [self.cords[0] + 1, self.cords[1] - 1]
+                        self.steps[22 + 77] = [self.cords[0] + 2, self.cords[1] - 2]
+                        self.steps[23 + 77] = [self.cords[0] + 3, self.cords[1] - 3]
+                        self.steps[24 + 77] = [self.cords[0] + 4, self.cords[1] - 4]
+                        self.steps[25 + 77] = [self.cords[0] + 5, self.cords[1] - 5]
+                        self.steps[26 + 77] = [self.cords[0] + 6, self.cords[1] - 6]
+                        self.steps[27 + 77] = [self.cords[0] + 7, self.cords[1] - 7]
+                    if "ZigZig" in list_of_types:
+                        self.steps[0 + 105] = [self.cords[0] + 1, self.cords[1]]
+                        self.steps[1 + 105] = [self.cords[0] + 2, self.cords[1]]
+                        self.steps[2 + 105] = [self.cords[0] + 3, self.cords[1]]
+                        self.steps[3 + 105] = [self.cords[0] + 4, self.cords[1]]
+                        self.steps[4 + 105] = [self.cords[0] + 5, self.cords[1]]
+                        self.steps[5 + 105] = [self.cords[0] + 6, self.cords[1]]
+                        self.steps[6 + 105] = [self.cords[0] + 7, self.cords[1]]
+                        self.steps[7 + 105] = [self.cords[0] - 1, self.cords[1]]
+                        self.steps[8 + 105] = [self.cords[0] - 2, self.cords[1]]
+                        self.steps[9 + 105] = [self.cords[0] - 3, self.cords[1]]
+                        self.steps[10 + 105] = [self.cords[0] - 4, self.cords[1]]
+                        self.steps[11 + 105] = [self.cords[0] - 5, self.cords[1]]
+                        self.steps[12 + 105] = [self.cords[0] - 6, self.cords[1]]
+                        self.steps[13 + 105] = [self.cords[0] - 7, self.cords[1]]
+                        self.steps[14 + 105] = [self.cords[0] + 1, self.cords[1] + 1]
+                        self.steps[15 + 105] = [self.cords[0] + 2, self.cords[1] + 2]
+                        self.steps[16 + 105] = [self.cords[0] + 3, self.cords[1] + 3]
+                        self.steps[17 + 105] = [self.cords[0] + 4, self.cords[1] + 4]
+                        self.steps[18 + 105] = [self.cords[0] + 5, self.cords[1] + 5]
+                        self.steps[19 + 105] = [self.cords[0] + 6, self.cords[1] + 6]
+                        self.steps[20 + 105] = [self.cords[0] + 7, self.cords[1] + 7]
+                        self.steps[21 + 105] = [self.cords[0] - 1, self.cords[1] - 1]
+                        self.steps[22 + 105] = [self.cords[0] - 2, self.cords[1] - 2]
+                        self.steps[23 + 105] = [self.cords[0] - 3, self.cords[1] - 3]
+                        self.steps[24 + 105] = [self.cords[0] - 4, self.cords[1] - 4]
+                        self.steps[25 + 105] = [self.cords[0] - 5, self.cords[1] - 5]
+                        self.steps[26 + 105] = [self.cords[0] - 6, self.cords[1] - 6]
+                        self.steps[27 + 105] = [self.cords[0] - 7, self.cords[1] - 7]
+        return friend_cords
 
 class GoldGeneral(pygame.sprite.Sprite):
     def __init__(self, cords, tag, team="Blue"):
@@ -401,7 +471,7 @@ class GoldGeneral(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("5", friend_cords)
+        # print("5", friend_cords)
         return friend_cords
 
 class ZagZag(pygame.sprite.Sprite):
@@ -478,7 +548,7 @@ class ZagZag(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("6", friend_cords)
+        # print("6", friend_cords)
         return friend_cords
 
 class ZagZig(pygame.sprite.Sprite):
@@ -555,7 +625,7 @@ class ZagZig(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("7", friend_cords)
+        # print("7", friend_cords)
         return friend_cords
 
 class ZigZag(pygame.sprite.Sprite):
@@ -632,7 +702,7 @@ class ZigZag(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("8", friend_cords)
+        # print("8", friend_cords)
         return friend_cords
 
 class ZigZig(pygame.sprite.Sprite):
@@ -709,7 +779,7 @@ class ZigZig(pygame.sprite.Sprite):
             else:
                 if [self.tag, self.type] in i:
                     friend_cords[friend_cords.index(i)].pop(friend_cords[friend_cords.index(i)].index([self.tag, self.type]))
-        print("9", friend_cords)
+        # print("9", friend_cords)
         return friend_cords
 
 # class Player(pygame.sprite.Sprite):

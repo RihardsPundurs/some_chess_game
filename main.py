@@ -142,10 +142,10 @@ while True:
     board.draw(screen)
     board.update()
     pieces.draw(screen)
-    print("00", friend_cords)
+    # print("00", friend_cords)
     for z in pieces:
       friend_cords = z.update(friend_cords)
-    print("11", friend_cords)
+    # print("11", friend_cords)
 
   else:
     screen.blit(bg_surf, bg_rect)
