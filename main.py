@@ -90,17 +90,22 @@ while True:
           lift[0] = i.check_click(event.pos)
           if lift[0]:
             lift[1] = i
+            print(i)
             break
       else:
         for i1 in board:
           set_cords = i1.check_click(event.pos)
+          # print(set_cords)
+          # print(i.steps)
           if set_cords != None and set_cords in i.steps:
+            print(i)
             piece_cords = []
             piece_teams = []
             for i2 in info:
               piece_cords.append(i2[2])
               piece_teams.append(i2[1])
             if set_cords not in piece_cords:
+
               lift[1].move(set_cords)
               info[lift[1].tag][2] = set_cords
               set_cords = None
